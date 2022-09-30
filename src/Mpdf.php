@@ -15537,6 +15537,28 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 			if ($listitemtype == 'none') {
 				return;
 			}
+			
+			### Topvisor
+			// aj - Nested order list with counter-increment
+			// no special css needed in html - apaart from     li { list-style-type: decimal; }
+			// this is needed for booking agreements
+			// https://github.com/mpdf/mpdf/issues/122
+			if ($listitemtype === 'decimal') {
+				$this->list_number_suffix = '';
+				$pre = '';
+				for ($loop = 1; $loop <= $this->listlvl; $loop++) {
+				    $pre = $this->listcounter[$this->listlvl + 1 - $loop].'.'.$pre;
+				}
+
+				if ($this->listlvl === 1) {
+				    $blt = $pre;
+				} else {
+				    $blt = substr($pre, 0, -1);
+				}
+				$counter = $blt;
+			}
+			// aj end of
+			### /Topvisor
 
 			$num = $this->_getStyledNumber($counter, $listitemtype, true);
 
