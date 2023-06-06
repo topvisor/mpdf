@@ -2086,6 +2086,11 @@ class Svg
 		$numerator = $rx * $rx * $ry * $ry - $rx * $rx * $y1dash * $y1dash - $ry * $ry * $x1dash * $x1dash;
 
 		if ($numerator < 0.0) {
+			// Topvisor
+			if(!$rx || !$ry){                                                                                                                                                                                                                                
+                                $rx = 0.001;                                                                                                                                                                                                                             
+                                $ry = 0.001;                                                                                                                                                                                                                             
+                        }
 
 			//  If rX , rY and are such that there is no solution (basically,
 			//  the ellipse is not big enough to reach from (x1, y1) to (x2,
